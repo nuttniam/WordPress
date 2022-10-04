@@ -14,15 +14,15 @@
 	<?php twentyfourteen_post_thumbnail(); ?>
 
 	<header class="entry-header">
-		<?php if ( in_array( 'category', get_object_taxonomies( get_post_type() ) ) && twentyfourteen_categorized_blog() ) : ?>
+		<?php if ( in_array( 'category', get_object_taxonomies( get_post_type() ), true ) && twentyfourteen_categorized_blog() ) : ?>
 		<div class="entry-meta">
 			<span class="cat-links"><?php echo get_the_category_list( _x( ', ', 'Used between list items, there is a space after the comma.', 'twentyfourteen' ) ); ?></span>
 		</div>
 			<?php
 			endif;
 
-if ( is_single() ) :
-	the_title( '<h1 class="entry-title">', '</h1>' );
+		if ( is_single() ) :
+			the_title( '<h1 class="entry-title">', '</h1>' );
 			else :
 				the_title( '<h1 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h1>' );
 			endif;
@@ -30,7 +30,7 @@ if ( is_single() ) :
 
 		<div class="entry-meta">
 			<?php
-			if ( 'post' == get_post_type() ) {
+			if ( 'post' === get_post_type() ) {
 				twentyfourteen_posted_on();
 			}
 
@@ -52,9 +52,9 @@ if ( is_single() ) :
 	<?php else : ?>
 	<div class="entry-content">
 		<?php
-			/* translators: %s: Name of current post */
 			the_content(
 				sprintf(
+					/* translators: %s: Post title. Only visible to screen readers. */
 					__( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'twentyfourteen' ),
 					the_title( '<span class="screen-reader-text">', '</span>', false )
 				)
@@ -73,4 +73,4 @@ if ( is_single() ) :
 	<?php endif; ?>
 
 	<?php the_tags( '<footer class="entry-meta"><span class="tag-links">', '', '</span></footer>' ); ?>
-</article><!-- #post-## -->
+</article><!-- #post-<?php the_ID(); ?> -->

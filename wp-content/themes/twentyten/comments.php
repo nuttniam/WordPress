@@ -34,11 +34,20 @@
 <?php if ( have_comments() ) : ?>
 			<h3 id="comments-title">
 			<?php
-			printf(
-				_n( 'One Response to %2$s', '%1$s Responses to %2$s', get_comments_number(), 'twentyten' ),
-				number_format_i18n( get_comments_number() ),
-				'<em>' . get_the_title() . '</em>'
-			);
+			if ( 1 === get_comments_number() ) {
+				printf(
+					/* translators: %s: The post title. */
+					__( 'One Response to %s', 'twentyten' ),
+					'<em>' . get_the_title() . '</em>'
+				);
+			} else {
+				printf(
+					/* translators: 1: The number of comments, 2: The post title. */
+					_n( '%1$s Response to %2$s', '%1$s Responses to %2$s', get_comments_number(), 'twentyten' ),
+					number_format_i18n( get_comments_number() ),
+					'<em>' . get_the_title() . '</em>'
+				);
+			}
 			?>
 			</h3>
 
@@ -47,7 +56,7 @@
 				<div class="nav-previous"><?php previous_comments_link( __( '<span class="meta-nav">&larr;</span> Older Comments', 'twentyten' ) ); ?></div>
 				<div class="nav-next"><?php next_comments_link( __( 'Newer Comments <span class="meta-nav">&rarr;</span>', 'twentyten' ) ); ?></div>
 			</div> <!-- .navigation -->
-	<?php endif; // check for comment navigation ?>
+	<?php endif; // Check for comment navigation. ?>
 
 			<ol class="commentlist">
 				<?php
@@ -67,7 +76,7 @@
 				<div class="nav-previous"><?php previous_comments_link( __( '<span class="meta-nav">&larr;</span> Older Comments', 'twentyten' ) ); ?></div>
 				<div class="nav-next"><?php next_comments_link( __( 'Newer Comments <span class="meta-nav">&rarr;</span>', 'twentyten' ) ); ?></div>
 			</div><!-- .navigation -->
-	<?php endif; // check for comment navigation ?>
+	<?php endif; // Check for comment navigation. ?>
 
 	<?php
 	/*
@@ -79,7 +88,7 @@
 		<p class="nocomments"><?php _e( 'Comments are closed.', 'twentyten' ); ?></p>
 	<?php endif; ?>
 
-<?php endif; // end have_comments() ?>
+<?php endif; // End have_comments(). ?>
 
 <?php comment_form(); ?>
 
